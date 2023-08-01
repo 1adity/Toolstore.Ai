@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy Generator</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+textarea {
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 16px;
+    text-align: left;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Privacy Policy Generator</h1>
+        <textarea id="privacy-text" placeholder="Enter your privacy policy text..."></textarea>
+        <button id="generate-btn">Generate Privacy Policy</button>
+        <div id="result"></div>
+    </div>
+    <script>
+        document.getElementById('generate-btn').addEventListener('click', function() {
+    const privacyText = document.getElementById('privacy-text').value.trim();
+
+    if (!privacyText) {
+        alert('Please enter your privacy policy text.');
+        return;
+    }
+
+    const privacyHTML = `<div class="privacy">${privacyText}</div>`;
+
+    const resultElement = document.getElementById('result');
+    resultElement.innerHTML = privacyHTML;
+});
+    </script>
+</body>
+</html>

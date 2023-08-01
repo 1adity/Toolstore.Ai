@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disclaimer Generator</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+textarea {
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 16px;
+    text-align: left;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Disclaimer Generator</h1>
+        <textarea id="disclaimer-text" placeholder="Enter your disclaimer text..."></textarea>
+        <button id="generate-btn">Generate Disclaimer</button>
+        <div id="result"></div>
+    </div>
+    <script>
+        document.getElementById('generate-btn').addEventListener('click', function() {
+    const disclaimerText = document.getElementById('disclaimer-text').value.trim();
+
+    if (!disclaimerText) {
+        alert('Please enter your disclaimer text.');
+        return;
+    }
+
+    const disclaimerHTML = `<div class="disclaimer">${disclaimerText}</div>`;
+
+    const resultElement = document.getElementById('result');
+    resultElement.innerHTML = disclaimerHTML;
+});
+    </script>
+</body>
+</html>

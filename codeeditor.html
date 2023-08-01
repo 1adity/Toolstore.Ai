@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Editor and Viewer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.css">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.editor {
+    margin-bottom: 20px;
+}
+
+.editor pre {
+    width: 100%;
+    min-height: 300px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.viewer {
+    margin-top: 20px;
+    text-align: left;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Code Editor and Viewer</h1>
+        <div class="editor">
+            <pre id="editor"></pre>
+        </div>
+        <button id="preview-btn">Preview</button>
+        <div class="viewer" id="viewer"></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
+    <script>
+        // Create the Ace code editor instance
+const editor = ace.edit("editor");
+editor.setTheme("ace/theme/twilight");
+editor.session.setMode("ace/mode/html");
+
+document.getElementById('preview-btn').addEventListener('click', function() {
+    const code = editor.getValue();
+    const viewerElement = document.getElementById('viewer');
+    viewerElement.innerHTML = code;
+})
+    </script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.input-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+input[type="number"] {
+    width: 150px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Currency Converter</h1>
+        <div class="input-section">
+            <label for="amount">Amount:</label>
+            <input type="number" id="amount" placeholder="Enter amount..." required>
+        </div>
+        <div class="input-section">
+            <label for="from">From:</label>
+            <select id="from" required>
+                <option value="usd">USD</option>
+                <option value="eur">EUR</option>
+                <option value="inr">INR</option>
+                <!-- Add more currency options as needed -->
+            </select>
+        </div>
+        <div class="input-section">
+            <label for="to">To:</label>
+            <select id="to" required>
+                <option value="usd">USD</option>
+                <option value="eur">EUR</option>
+                <option value="inr">INR</option>
+                <!-- Add more currency options as needed -->
+            </select>
+        </div>
+        <button id="convert-btn">Convert</button>
+        <div id="result"></div>
+    </div>
+    <script>
+        document.getElementById('convert-btn').addEventListener('click', function() {
+    const amountInput = document.getElementById('amount');
+    const fromSelect = document.getElementById('from');
+    const toSelect = document.getElementById('to');
+    const resultElement = document.getElementById('result');
+
+    const amount = parseFloat(amountInput.value);
+    if (isNaN(amount) || amount <= 0) {
+        alert('Please enter a valid amount.');
+        return;
+    }
+
+    const fromCurrency = fromSelect.value;
+    const toCurrency = toSelect.value;
+    const conversionRate = getConversionRate(fromCurrency, toCurrency);
+
+    const convertedAmount = amount * conversionRate;
+    resultElement.textContent = `${amount} ${fromCurrency.toUpperCase()} is approximately ${convertedAmount.toFixed(2)} ${toCurrency.toUpperCase()}`;
+});
+
+// Sample conversion rates - Replace these with real rates
+function getConversionRate(fromCurrency, toCurrency) {
+    const rates = {
+        usd: { eur: 0.85, inr: 74.5 },
+        eur: { usd: 1.18, inr: 88.1 },
+        inr: { usd: 0.013, eur: 0.011 }
+    };
+
+    return rates[fromCurrency][toCurrency];
+}
+    </script>
+</body>
+</html>

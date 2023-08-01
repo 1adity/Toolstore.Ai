@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Pad</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.editor {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    min-height: 200px;
+    background-color: #fff;
+    margin-bottom: 20px;
+}
+
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.toolbar button,
+.toolbar label,
+.toolbar select,
+.toolbar input[type="color"] {
+    margin: 5px;
+}
+
+.toolbar button {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.toolbar button:hover {
+    background-color: #0056b3;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Word Pad</h1>
+        <div class="editor" contenteditable="true" id="editor">
+            Start typing here...
+        </div>
+        <div class="toolbar">
+            <button id="bold-btn">Bold</button>
+            <button id="italic-btn">Italic</button>
+            <button id="underline-btn">Underline</button>
+            <button id="strike-btn">Strike Through</button>
+            <button id="align-left-btn">Align Left</button>
+            <button id="align-center-btn">Align Center</button>
+            <button id="align-right-btn">Align Right</button>
+            <label for="font-size">Font Size:</label>
+            <select id="font-size">
+                <option value="12px">12</option>
+                <option value="16px">16</option>
+                <option value="20px">20</option>
+            </select>
+            <label for="font-family">Font Family:</label>
+            <select id="font-family">
+                <option value="Arial">Arial</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Courier New">Courier New</option>
+            </select>
+            <label for="font-color">Font Color:</label>
+            <input type="color" id="font-color">
+            <label for="bg-color">Background Color:</label>
+            <input type="color" id="bg-color">
+            <button id="download-btn">Download .txt</button>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vim.js@1.0.0/vim.min.js"></script>
+    <script>
+        const editor = new Vim("#editor");
+
+document.getElementById('bold-btn').addEventListener('click', function() {
+    editor.execCommand('bold');
+});
+
+document.getElementById('italic-btn').addEventListener('click', function() {
+    editor.execCommand('italic');
+});
+
+document.getElementById('underline-btn').addEventListener('click', function() {
+    editor.execCommand('underline');
+});
+
+document.getElementById('strike-btn').addEventListener('click', function() {
+    editor.execCommand('strikeThrough');
+});
+
+document.getElementById('align-left-btn').addEventListener('click', function() {
+    editor.execCommand('justifyLeft');
+});
+
+document.getElementById('align-center-btn').addEventListener('click', function() {
+    editor.execCommand('justifyCenter');
+});
+
+document.getElementById('align-right-btn').addEventListener('click', function() {
+    editor.execCommand('justifyRight');
+});
+
+document.getElementById('font-size').addEventListener('change', function() {
+    const fontSize = this.value;
+    editor.execCommand('fontSize', false, fontSize);
+});
+
+document.getElementById('font-family').addEventListener('change', function() {
+    const fontFamily = this.value;
+    editor.execCommand('fontName', false, fontFamily);
+});
+
+document.getElementById('font-color').addEventListener('change', function() {
+    const fontColor = this.value;
+    editor.execCommand('foreColor', false, fontColor);
+});
+
+document.getElementById('bg-color').addEventListener('change', function() {
+    const bgColor = this.value;
+    editor.execCommand('hiliteColor', false, bgColor);
+});
+
+document.getElementById('download-btn').addEventListener('click', function() {
+    const text = editor.getValue();
+    const blob = new Blob([text], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'document.txt';
+    a.click();
+
+    URL.revokeObjectURL(url);
+});
+    </script>
+</body>
+</html>

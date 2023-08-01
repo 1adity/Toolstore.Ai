@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GST Calculator</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+label {
+    flex: 1;
+    text-align: left;
+}
+
+input {
+    flex: 2;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>GST Calculator</h1>
+        <div class="input-group">
+            <label for="amount">Amount (INR)</label>
+            <input type="number" id="amount" placeholder="Enter amount...">
+        </div>
+        <div class="input-group">
+            <label for="gst-rate">GST Rate (%)</label>
+            <input type="number" id="gst-rate" step="0.01" placeholder="Enter GST rate...">
+        </div>
+        <button id="calculate-btn">Calculate</button>
+        <div id="result"></div>
+    </div>
+    <script>
+        document.getElementById('calculate-btn').addEventListener('click', function() {
+    const amount = parseFloat(document.getElementById('amount').value);
+    const gstRate = parseFloat(document.getElementById('gst-rate').value);
+
+    if (isNaN(amount) || isNaN(gstRate)) {
+        alert('Please enter valid numbers for both fields.');
+        return;
+    }
+
+    const gstAmount = (amount * gstRate) / 100;
+    const totalAmount = amount + gstAmount;
+
+    const resultElement = document.getElementById('result');
+    resultElement.innerHTML = `
+        GST Amount: ₹${gstAmount.toFixed(2)}<br>
+        Total Amount (Including GST): ₹${totalAmount.toFixed(2)}
+    `;
+});
+    </script>
+</body>
+</html>
