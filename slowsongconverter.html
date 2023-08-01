@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slow Song Converter</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+input[type="file"] {
+    margin-bottom: 20px;
+}
+
+button {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+audio {
+    width: 100%;
+    margin-top: 20px;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Slow Song Converter</h1>
+        <input type="file" id="file-input" accept="audio/*">
+        <button id="convert-btn">Convert</button>
+        <audio controls id="audio-preview" style="display: none;"></audio>
+        <a id="download-link" href="#" download style="display: none;">Download Slow Song</a>
+    </div>
+    <script>document.getElementById('convert-btn').addEventListener('click', function() {
+    const fileInput = document.getElementById('file-input');
+    const audioPreview = document.getElementById('audio-preview');
+    const downloadLink = document.getElementById('download-link');
+
+    const file = fileInput.files[0];
+    if (!file) return;
+
+    const fileURL = URL.createObjectURL(file);
+
+    audioPreview.src = fileURL;
+    audioPreview.style.display = 'block';
+
+    downloadLink.href = fileURL;
+    downloadLink.style.display = 'block';
+});
+</script>
+</body>
+</html>

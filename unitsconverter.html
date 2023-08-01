@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Units Converter</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.unit-converter {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f8f8f8;
+}
+
+h2 {
+    margin-bottom: 10px;
+}
+
+input[type="number"] {
+    width: 100px;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+select {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 5px;
+}
+
+button {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+    margin: 5px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#length-result, #mass-result, #temp-result {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Units Converter</h1>
+        <div class="unit-converter" id="length-converter">
+            <h2>Length Converter</h2>
+            <input type="number" id="length-input" placeholder="Enter length...">
+            <select id="length-from">
+                <!-- Populate the length units dynamically using JavaScript -->
+            </select>
+            <select id="length-to">
+                <!-- Populate the length units dynamically using JavaScript -->
+            </select>
+            <button id="length-convert-btn">Convert</button>
+            <div id="length-result"></div>
+        </div>
+
+        <div class="unit-converter" id="mass-converter">
+            <h2>Mass Converter</h2>
+            <input type="number" id="mass-input" placeholder="Enter mass...">
+            <select id="mass-from">
+                <!-- Populate the mass units dynamically using JavaScript -->
+            </select>
+            <select id="mass-to">
+                <!-- Populate the mass units dynamically using JavaScript -->
+            </select>
+            <button id="mass-convert-btn">Convert</button>
+            <div id="mass-result"></div>
+        </div>
+
+        <div class="unit-converter" id="temperature-converter">
+            <h2>Temperature Converter</h2>
+            <input type="number" id="temp-input" placeholder="Enter temperature...">
+            <select id="temp-from">
+                <option value="Celsius">Celsius</option>
+                <option value="Fahrenheit">Fahrenheit</option>
+                <option value="Kelvin">Kelvin</option>
+            </select>
+            <select id="temp-to">
+                <option value="Celsius">Celsius</option>
+                <option value="Fahrenheit">Fahrenheit</option>
+                <option value="Kelvin">Kelvin</option>
+            </select>
+            <button id="temp-convert-btn">Convert</button>
+            <div id="temp-result"></div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/js-quantities@1.4.0"></script>
+    <script>
+        const lengthUnits = ['Meter', 'Kilometer', 'Centimeter', 'Millimeter', 'Mile', 'Yard', 'Foot', 'Inch'];
+const massUnits = ['Kilogram', 'Gram', 'Pound', 'Ounce'];
+const temperatureUnits = ['Celsius', 'Fahrenheit', 'Kelvin'];
+
+function populateOptions(selectElement, units) {
+    units.forEach(unit => {
+        const option = document.createElement('option');
+        option.value = unit;
+        option.textContent = unit;
+        selectElement.appendChild(option);
+    });
+}
+
+populateOptions(document.getElementById('length-from'), lengthUnits);
+populateOptions(document.getElementById('length-to'), lengthUnits);
+populateOptions(document.getElementById('mass-from'), massUnits);
+populateOptions(document.getElementById('mass-to'), massUnits);
+
+document.getElementById('length-convert-btn').addEventListener('click', function() {
+    const fromUnit = document.getElementById('length-from').value;
+    const toUnit = document.getElementById('length-to').value;
+    const inputValue = parseFloat(document.getElementById('length-input').value);
+
+    if (isNaN(inputValue)) {
+        alert('Please enter a valid number for length.');
+        return;
+    }
+
+    const fromQuantity = Qty(inputValue, fromUnit);
+    const toQuantity = fromQuantity.to(toUnit);
+    document.getElementById('length-result').textContent = `${inputValue} ${fromUnit} = ${toQuantity.scalar} ${toUnit}`;
+});
+
+document.getElementById('mass-convert-btn').addEventListener('click', function() {
+    const fromUnit = document.getElementById('mass-from').value;
+    const toUnit = document.getElementById('mass-to').value;
+    const inputValue = parseFloat(document.getElementById('mass-input').value);
+
+    if (isNaN(inputValue)) {
+        alert('Please enter a valid number for mass.');
+        return;
+    }
+
+    const fromQuantity = Qty(inputValue, fromUnit);
+    const toQuantity = fromQuantity.to(toUnit);
+    document.getElementById('mass-result').textContent = `${inputValue} ${fromUnit} = ${toQuantity.scalar} ${toUnit}`;
+});
+
+document.getElementById('temp-convert-btn').addEventListener('click', function() {
+    const fromUnit = document.getElementById('temp-from').value;
+    const toUnit = document.getElementById('temp-to').value;
+    const inputValue = parseFloat(document.getElementById('temp-input').value);
+
+    if (isNaN(inputValue)) {
+        alert('Please enter a valid number for temperature.');
+        return;
+    }
+
+    const fromQuantity = Qty(inputValue, fromUnit);
+    const toQuantity = fromQuantity.to(toUnit);
+    document.getElementById('temp-result').textContent = `${inputValue} ${fromUnit} = ${toQuantity.scalar} ${toUnit}`;
+});
+    </script>
+</body>
+</html>

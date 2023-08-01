@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Time Alert</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.input-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+input[type="number"] {
+    width: 150px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+button {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Study Time Alert</h1>
+        <div class="input-section">
+            <label for="study-time">Study Time (in minutes):</label>
+            <input type="number" id="study-time" min="1" step="1" required>
+        </div>
+        <button id="start-btn">Start Timer</button>
+    </div>
+    <script>
+        document.getElementById('start-btn').addEventListener('click', function() {
+    const studyTimeInput = document.getElementById('study-time');
+    const studyTime = parseInt(studyTimeInput.value);
+    if (isNaN(studyTime) || studyTime <= 0) {
+        alert('Please enter a valid study time (in minutes).');
+        return;
+    }
+
+    const totalTimeInSeconds = studyTime * 60;
+    startTimer(totalTimeInSeconds);
+});
+
+function startTimer(totalTimeInSeconds) {
+    const timerElement = document.createElement('div');
+    timerElement.classList.add('timer');
+
+    let remainingSeconds = totalTimeInSeconds;
+
+    const intervalId = setInterval(function() {
+        const minutes = Math.floor(remainingSeconds / 60);
+        const seconds = remainingSeconds % 60;
+
+        timerElement.textContent = `Time Remaining: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+        remainingSeconds--;
+
+        if (remainingSeconds < 0) {
+            clearInterval(intervalId);
+            showStudyAlert();
+        }
+    }, 1000);
+
+    document.body.appendChild(timerElement);
+}
+
+function showStudyAlert() {
+    alert('Study time is over! Take a break.');
+    removeTimerElement();
+}
+
+function removeTimerElement() {
+    const timerElement = document.querySelector('.timer');
+    if (timerElement) {
+        timerElement.remove();
+    }
+}
+    </script>
+</body>
+</html>

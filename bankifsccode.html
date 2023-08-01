@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank IFSC Code Checker</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 18px;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bank IFSC Code Checker</h1>
+        <input type="text" id="ifsc-input" placeholder="Enter IFSC Code...">
+        <button id="check-btn">Check</button>
+        <div id="result"></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.4/axios.min.js"></script>
+    <script>
+        document.getElementById('check-btn').addEventListener('click', function() {
+    const ifscCode = document.getElementById('ifsc-input').value;
+    if (ifscCode) {
+        const apiUrl = `https://ifsc.razorpay.com/${ifscCode}`;
+        axios.get(apiUrl)
+            .then(response => {
+                const resultElement = document.getElementById('result');
+                resultElement.textContent = `Bank Name: ${response.data.BANK}\nBranch: ${response.data.BRANCH}\nCity: ${response.data.CITY}\nState: ${response.data.STATE}`;
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }
+});
+    </script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.input-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+input[type="date"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Age Calculator</h1>
+        <div class="input-section">
+            <label for="birthdate">Enter Your Birthdate:</label>
+            <input type="date" id="birthdate" required>
+        </div>
+        <button id="calculate-btn">Calculate Age</button>
+        <div id="result"></div>
+    </div>
+    <script>
+        document.getElementById('calculate-btn').addEventListener('click', function() {
+    const birthdateInput = document.getElementById('birthdate');
+    const resultElement = document.getElementById('result');
+
+    const birthdate = new Date(birthdateInput.value);
+    const now = new Date();
+    const ageInMilliseconds = now - birthdate;
+    const ageInYears = ageInMilliseconds / (1000 * 60 * 60 * 24 * 365.25);
+    const age = Math.floor(ageInYears);
+
+    resultElement.textContent = `Your age is approximately ${age} years.`;
+});
+    </script>
+</body>
+</html>

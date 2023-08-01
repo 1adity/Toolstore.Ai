@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener Tool</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    word-break: break-all;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>URL Shortener Tool</h1>
+        <input type="text" id="url-input" placeholder="Enter your long URL...">
+        <button id="shorten-btn">Shorten</button>
+        <div id="result"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.getElementById('shorten-btn').addEventListener('click', function() {
+    const longURL = document.getElementById('url-input').value.trim();
+
+    if (!longURL) {
+        alert('Please enter a valid URL.');
+        return;
+    }
+
+    axios.get(`https://api.shrtco.de/v2/shorten?url=${encodeURIComponent(longURL)}`)
+        .then(response => {
+            const shortURL = response.data.result.full_short_link;
+            const resultElement = document.getElementById('result');
+            resultElement.innerHTML = `Short URL: <a href="${shortURL}" target="_blank">${shortURL}</a>`;
+        })
+        .catch(error => {
+            console.error('Error shortening URL:', error);
+        });
+});
+    </script>
+</body>
+</html>
